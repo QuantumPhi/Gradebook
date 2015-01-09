@@ -12,12 +12,12 @@ using System.Windows.Media;
 
 namespace Gradebook
 {
-    public partial class LoginPage : PhoneApplicationPage
+    public partial class MainPage : PhoneApplicationPage
     {
-        private readonly SolidColorBrush brush = new SolidColorBrush();
+        private static readonly SolidColorBrush brush = new SolidColorBrush();
 
         // Constructor
-        public LoginPage()
+        public MainPage()
         {
             InitializeComponent();
 
@@ -28,15 +28,48 @@ namespace Gradebook
         private void UserBox_GotFocus(object sender, EventArgs e)
         {
             var textbox = sender as TextBox;
-            textbox.Text = "";
-        }
-
-        private void UserBox_GotFocus_1(object sender, RoutedEventArgs e)
-        {
-
+            if (textbox.Text == "Username")
+            {
+                textbox.Text = "";
+            }
+            brush.Color = Colors.Black;
+            textbox.Foreground = brush;
         }
 
         private void UserBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            var textbox = sender as TextBox;
+            if (textbox.Text == String.Empty)
+            {
+                textbox.Text = "Username";
+                brush.Color = Colors.Gray;
+                textbox.Foreground = brush;
+            }
+        }
+
+        private void PassBox_GotFocus(object sender, EventArgs e)
+        {
+            var textbox = sender as PasswordBox;
+            var watermark = PassBox_Watermark;
+            if(textbox.Opacity == 0)
+            {
+                textbox.Opacity = 100;
+                watermark.Opacity = 0;
+            }
+        }
+
+        private void PassBox_LostFocus(object sender, EventArgs e)
+        {
+            var textbox = sender as PasswordBox;
+            var watermark = PassBox_Watermark;
+            if(textbox.Password == String.Empty)
+            {
+                textbox.Opacity = 0;
+                watermark.Opacity = 100;
+            }
+        }
+
+        private void PassBox_Watermark_GotFocus(object sender, RoutedEventArgs e)
         {
 
         }
