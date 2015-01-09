@@ -25,7 +25,7 @@ namespace Gradebook
             //BuildLocalizedApplicationBar();
         }
 
-        private void UserBox_GotFocus(object sender, EventArgs e)
+        void UserBox_GotFocus(object sender, EventArgs e)
         {
             var textbox = sender as TextBox;
             if (textbox.Text == "Username")
@@ -36,7 +36,7 @@ namespace Gradebook
             textbox.Foreground = brush;
         }
 
-        private void UserBox_LostFocus(object sender, RoutedEventArgs e)
+        void UserBox_LostFocus(object sender, RoutedEventArgs e)
         {
             var textbox = sender as TextBox;
             if (textbox.Text == String.Empty)
@@ -47,7 +47,7 @@ namespace Gradebook
             }
         }
 
-        private void PassBox_GotFocus(object sender, EventArgs e)
+        void PassBox_GotFocus(object sender, EventArgs e)
         {
             var textbox = sender as PasswordBox;
             var watermark = PassBox_Watermark;
@@ -58,7 +58,7 @@ namespace Gradebook
             }
         }
 
-        private void PassBox_LostFocus(object sender, EventArgs e)
+        void PassBox_LostFocus(object sender, EventArgs e)
         {
             var textbox = sender as PasswordBox;
             var watermark = PassBox_Watermark;
@@ -66,6 +66,15 @@ namespace Gradebook
             {
                 textbox.Opacity = 0;
                 watermark.Opacity = 100;
+            }
+        }
+
+        async void LoginButton_Click(object sender, EventArgs e)
+        {
+            var statusCode = await DataManager.FetchAsync(UserBox.Text, PassBox.Password);
+            if(statusCode == DataManager.StatusCode.SUCCESS)
+            {
+
             }
         }
 

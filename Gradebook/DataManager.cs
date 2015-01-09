@@ -5,7 +5,7 @@ using Windows.Data.Json;
 
 namespace Gradebook
 {
-    class DataManager
+    static class DataManager
     {
         public static JsonObject Cache;
 
@@ -15,18 +15,9 @@ namespace Gradebook
             FAILURE = 1
         }
 
-        public readonly string Username;
-        public readonly string Password;
-
-        public DataManager(string username, string password)
+        public static async Task<StatusCode> FetchAsync(string username, string password)
         {
-            this.Username = username;
-            this.Password = password;
-        }
-
-        public async Task<StatusCode> Fetch(object sender, object e)
-        {
-            string url = "https://gradebook-web-api.herokuapp.com/?username=" + this.Username + "&password=" + this.Password;
+            string url = "https://gradebook-web-api.herokuapp.com/?username=" + username + "&password=" + password;
             var response = await GetWebResponse(url);
 
             if (response.ContainsKey("error"))
@@ -46,10 +37,8 @@ namespace Gradebook
             request.Method = "GET";
             request.Accept = "application/json";
 
-            using (var response = (HttpWebResponse)(await request.GetResponseAsync()))
-            {
-                return JsonObject.Parse(new StreamReader(response.GetResponseStream()).ReadToEnd());
-            }
+            var response = (HttpWebResponse)(await request.GetResponseAsync());
+            return JsonObject.Parse(new StreamReader(response.GetResponseStream()).ReadToEnd());
         }
     }
 }

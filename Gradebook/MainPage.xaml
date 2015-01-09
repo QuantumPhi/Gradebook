@@ -49,6 +49,7 @@
             <TextBox x:Name="UserBox" HorizontalAlignment="Left" Height="72" Margin="0,152,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="456" Foreground="Gray" GotFocus="UserBox_GotFocus" LostFocus="UserBox_LostFocus"/>
             <TextBox x:Name="PassBox_Watermark" HorizontalAlignment="Left" Height="72" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="456" Margin="0,229,0,0" Foreground="Gray" IsHitTestVisible="False"/>
             <PasswordBox x:Name="PassBox" HorizontalAlignment="Left" Margin="0,229,0,0" VerticalAlignment="Top" Width="456" Opacity="0" GotFocus="PassBox_GotFocus" LostFocus="PassBox_LostFocus"/>
+            <Button x:Name="LoginButton" Content="Login" HorizontalAlignment="Center" Margin="153,306,153,0" VerticalAlignment="Top" Width="150" Click="LoginButton_Click"/>
         </Grid>
 
         <!--Uncomment to see an alignment grid to help ensure your controls are
