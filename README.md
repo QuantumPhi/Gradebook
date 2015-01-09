@@ -1,2 +1,2 @@
 # Gradebook
-BSD gradebook app for Windows Phone 8.1. Inspired by @anubiann00b's gradebook app for Android.
+BSD gradebook app for Windows Phone 8.1. Inspired by @anubiann00b's gradebook app for Android (https://github.com/anubiann00b/BSDGradebook).

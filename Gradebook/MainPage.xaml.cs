@@ -69,11 +69,6 @@ namespace Gradebook
             }
         }
 
-        private void PassBox_Watermark_GotFocus(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         // Sample code for building a localized ApplicationBar
         //private void BuildLocalizedApplicationBar()
         //{
