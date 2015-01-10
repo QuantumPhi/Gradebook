@@ -16,5 +16,15 @@ namespace Gradebook
         {
             InitializeComponent();
         }
+
+        void Pivot_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        void CourseList_LoadData()
+        {
+            
+        }
     }
 }

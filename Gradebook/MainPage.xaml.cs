@@ -14,7 +14,8 @@ namespace Gradebook
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        private static readonly SolidColorBrush brush = new SolidColorBrush();
+        private static readonly SolidColorBrush textBrush = new SolidColorBrush();
+        private static readonly SolidColorBrush borderBrush = new SolidColorBrush();
 
         // Constructor
         public MainPage()
@@ -28,12 +29,14 @@ namespace Gradebook
         void UserBox_GotFocus(object sender, EventArgs e)
         {
             var textbox = sender as TextBox;
+            borderBrush.Color = Colors.Black;
+            textbox.BorderBrush = borderBrush;
             if (textbox.Text == "Username")
             {
                 textbox.Text = "";
             }
-            brush.Color = Colors.Black;
-            textbox.Foreground = brush;
+            textBrush.Color = Colors.Black;
+            textbox.Foreground = textBrush;
         }
 
         void UserBox_LostFocus(object sender, RoutedEventArgs e)
@@ -42,8 +45,8 @@ namespace Gradebook
             if (textbox.Text == String.Empty)
             {
                 textbox.Text = "Username";
-                brush.Color = Colors.Gray;
-                textbox.Foreground = brush;
+                textBrush.Color = Colors.Gray;
+                textbox.Foreground = textBrush;
             }
         }
 
@@ -74,7 +77,13 @@ namespace Gradebook
             var statusCode = await DataManager.FetchAsync(UserBox.Text, PassBox.Password);
             if(statusCode == DataManager.StatusCode.SUCCESS)
             {
-
+                NavigationService.Navigate(new Uri("/GradePage.xaml", UriKind.Relative));
+            }
+            else
+            {
+                borderBrush.Color = Colors.Red;
+                PassBox.Password = "";
+                UserBox.BorderBrush = borderBrush;
             }
         }
 
