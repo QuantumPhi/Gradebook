@@ -8,6 +8,34 @@ using Windows.Data.Json;
 
 namespace Gradebook
 {
+    struct Assignment
+    {
+        public readonly DateTime Date;
+        public readonly string Name;
+        public readonly Course Course;
+
+        public Assignment(string date, string name, Course course)
+        {
+            this.Date = Convert.ToDateTime(date);
+            this.Name = name;
+            this.Course = course;
+        }
+    }
+
+    struct Course
+    {
+        public readonly string Name;
+        public readonly int Period;
+        public readonly Tuple<double, string> Grade;
+
+        public Course(string name, int period, Tuple<double, string> grade)
+        {
+            this.Name = name;
+            this.Period = period;
+            this.Grade = grade;
+        }
+    }
+
     static class DataManager
     {
         public static JsonObject Cache;
@@ -16,6 +44,11 @@ namespace Gradebook
         {
             SUCCESS = 0,
             FAILURE = 1
+        }
+
+        public static void ProcessData(JsonObject data)
+        {
+            
         }
 
         public static async Task<StatusCode> FetchAsync(string username, string password)
