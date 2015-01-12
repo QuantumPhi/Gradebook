@@ -1,25 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 
 namespace Gradebook
 {
-    struct Assignment
+    [DataContract]
+    internal struct Assignment
     {
+        [DataMember]
         public readonly DateTime Date;
+        [DataMember]
         public readonly string Name;
-        public readonly Course Course;
-
-        public Assignment(string date, string name, Course course)
-        {
-            this.Date = Convert.ToDateTime(date);
-            this.Name = name;
-            this.Course = course;
-        }
     }
 
     struct Course
@@ -27,12 +24,15 @@ namespace Gradebook
         public readonly string Name;
         public readonly int Period;
         public readonly Tuple<double, string> Grade;
+        // public readonly List<Assignment> Assignments;
 
         public Course(string name, int period, Tuple<double, string> grade)
         {
             this.Name = name;
             this.Period = period;
             this.Grade = grade;
+
+            // this.Assignments = new List<Assignment>();
         }
     }
 
@@ -48,7 +48,9 @@ namespace Gradebook
 
         public static void ProcessData(JsonObject data)
         {
-            
+            var overdue = data.GetNamedValue("default").GetObject().GetNamedValue("overdue").GetObject()
+                .Select(x => new Assignment(x.GetString("date"), x.GetString("assignment")))
+                .ToList();
         }
 
         public static async Task<StatusCode> FetchAsync(string username, string password)
